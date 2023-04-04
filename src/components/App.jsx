@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ToDoItem from "./ToDoItem";
+import InputArea from "./InputArea";
 
 //CHALLENGE: Make this app work by applying what you've learnt.
 //1. When new text is written into the input, its state should be saved.
@@ -9,19 +10,13 @@ import ToDoItem from "./ToDoItem";
 
 function App() {
   const [list, setList] = useState([]);
-  const [item, setItem] = useState("");
 
-  function handleClick(event) {
-    event.preventDefault();
+  function handleClick(addedItem) {
     setList((prevList) => {
-      return [...prevList, item];
+      return [...prevList, addedItem];
     });
-    setItem("");
   }
-  function handleChange(event) {
-    const item = event.target.value;
-    setItem(item);
-  }
+  
   function deleteItem(id) {
     setList((prevList) => {
       return prevList.filter((item, index) => {
@@ -36,12 +31,9 @@ function App() {
         <h1>To-Do List</h1>
       </div>
 
-      <div className="form">
-        <input onChange={handleChange} value={item} type="text" />
-        <button onClick={handleClick}>
-          <span>Add</span>
-        </button>
-      </div>
+      <InputArea
+        onAdd={handleClick}
+      />
 
       <div>
         <ul>
